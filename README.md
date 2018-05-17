@@ -1,4 +1,4 @@
-#Simulation un réseau de bus
+# Simulation un réseau de bus
 
 ```
 le rapport complet est dans le dossier data/
@@ -6,7 +6,7 @@ le rapport complet est dans le dossier data/
 
 ## L’Objectif du travail
 
-l'objectif de ce travail est de créer une application dans le domaine des objets connectés qui consiste
+l'objectif de ce travail est de developper une application dans le domaine des objets connectés qui consiste
 à simuler un réseau de bus et de stations , en considérant que chaque bus possède un capteur qui
 transmis sa position vers le cloud , chaque station de bus reçois la position des bus puis calcule le
 temps d'arriver de chaque bus.
@@ -21,7 +21,6 @@ Le fichier bus_predicition.py contient analyse les données collectées par les 
 d’attente calculé, puis il prédit le temps d’attente avec un algorithme d’apprentissage automatique.
 
 
-```
 #### Classe Bus :
 
 La classe bus contient 6 attributs et 6 méthodes:
