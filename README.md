@@ -1,23 +1,23 @@
-# Simulation un réseau de bus
+# Simulation d'un réseau de bus
 
 ```
 le rapport complet est dans le dossier data/
 ```
 
-## L’Objectif du travail
+## L’Objectif de ce travail
 
-l'objectif de ce travail est de developper une application dans le domaine des objets connectés qui consiste
+l'objectif de ce travail est de développer une application dans le domaine des objets connectés, qui consiste
 à simuler un réseau de bus et de stations , en considérant que chaque bus possède un capteur qui
 transmis sa position vers le cloud , chaque station de bus reçois la position des bus puis calcule le
-temps d'arriver de chaque bus.
+temps d'arrivée de chaque bus.
 La deuxième partie de ce travail consiste à appliquer un des algorithmes d’apprentissage automatique
-et de prédire le temps d’attente des bus.
+et de prédire le temps d’attente de chaque bus.
 
 ## Structure du programme
 
-pour bien décortiquer le problème, nous avons créés 2 classe Bus.py, Station.py , un fichier utils.py
+pour bien décortiquer le problème, nous avons créés 2 classe Bus.py et Station.py , un fichier utils.py
 pour les fonctions utilitaires et main.py pour la fonction principale.
-Le fichier bus_predicition.py contient analyse les données collectées par les stations, le temps
+Le fichier bus_predicition.py  analyse les données collectées par les stations, le temps
 d’attente calculé, puis il prédit le temps d’attente avec un algorithme d’apprentissage automatique.
 
 
@@ -40,10 +40,10 @@ sendTemperature() : une méthode qui sert à envoyer la température du bus au c
 
 #### Classe station :
 
-La classe bus contient 7 attributs et 5 méthodes:
+La classe Bus contient 7 attributs et 5 méthodes:
 Id : un identifiant unique de type entier pour chaque station.
 Img : une image qui représente la station de bus sur l’interface graphique.
-logger : un fichier de log qui set sauvegarder les données reçues et le temps d’attentes calculé.
+logger : un fichier de log qui sert à sauvegarder les données reçues et le temps d’attentes calculé.
 Bus_horaires : vairiable de type liste
 X_pos : un entier qui représente la position du bus dans l’interface graphique par rapport à l’axe X.
 Y_pos : un entier qui représente la position du bus dans l’interface graphique par rapport à l’axe Y.
@@ -56,32 +56,37 @@ sendTemperature() : une méthode qui sert à envoyer la température du bus au c
 
 #### Génération de vitesse aléatoire
 
-Les bus avancent d’un seul pixel chaque t = time.sleep(uniform(T_MIN, T_MAX)).
+Les bus avancent d’un seul pixel chaque t seconde , sachant que t est generé d'une maniere aleatoire pour
+simuler un vrais bus. ``t = time.sleep(uniform(T_MIN, T_MAX)).``
 
 #### Utilisation des Thread
 
-Dans notre application, nous avons utilisé Les ``threads'' qui sont des unités d'exécution
+Dans notre application, nous avons utilisé Les ``threads`` qui sont des unités d'exécution
 autonomes qui peuvent effectuer des tâches, en parallèle avec d'autres threads, comme
 pour l’affichage de chaque bus sur l’interface graphique, et l’envoie de données, et les
 
-### calculs faits par chaque station.
+### calcul faits par chaque station.
 
-thread_bus_1 = Thread(target=running_bus_1, args=(bus_1, False))
-thread_bus_1.start()
-thread_send_data = Thread(target=send_data, args=(bus_1, bus_2, bus_3))
-thread_send_data.start()
+``thread_bus_1 = Thread(target=running_bus_1, args=(bus_1, False)).``
+
+``thread_bus_1.start().``
+
+``thread_send_data = Thread(target=send_data, args=(bus_1, bus_2, bus_3)).``
+
+``thread_send_data.start().``
 
 ## Apprentissage automatique
 
 #### Prétraitement
 
-Dans un premier temps nous avons collecté les donnes dans un fichier log activity.log qui contient un
-journal d’activité de notre application sous forme de donnée séparé par des --
-02/01/18- 20:16:36 -- 2018 -- 131 -- 80 -- {'2019': 1000.0, '2018': 1000.0, '2020': 1000.0}.
+Dans un premier temps nous avons collecté les données dans un fichier log ``activity.log`` qui contient un
+journal d’activité de notre application sous forme de données séparé par des --
+Exemple : 
+``02/01/18- 20:16:36 -- 2018 -- 131 -- 80 -- {'2019': 1000.0, '2018': 1000.0, '2020': 1000.0}.``
 Puis nous avons supprimé les lignes dupliquées et générer un fichier train.txt, par la fonction
 delete_duplicate().
 la fonction text_to_csv() nous a permis de sélectionner toutes les données(lignes) qui
-correspondent au bus 2018 et générer un fichier au format csv train.csv qui sera utilisé dans la
+correspondent au bus 2018 et générer un fichier au format csv ``train.csv`` qui sera utilisé dans la
 prédiction du temps d’attente du bus.
 id_bus x_position, y_position wainting_time
 2018 141 80 74.
